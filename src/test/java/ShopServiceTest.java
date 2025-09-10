@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,7 +18,7 @@ class ShopServiceTest {
         Order actual = shopService.addOrder(productsIds);
 
         //THEN
-        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING);
+        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING, LocalDateTime.now());
         assertEquals(expected.products(), actual.products());
         assertNotNull(expected.id());
     }
@@ -42,12 +43,15 @@ class ShopServiceTest {
         Product product2 = new Product("5", "Banane");
         Order order2 = shopService.addOrder(List.of(product.id(), product2.id()));
 
-        List<Order> expected = List.of(order1,  order2);
+        Order order3 = shopService.addOrder(List.of(product2.id()));
+        shopService.updateOrder(order3.id(), OrderStatus.COMPLETED);
+
+        int expected = 2;
 
         //WHEN
         List<Order> orders = shopService.getOrdersByStatus(OrderStatus.PROCESSING);
 
         //THEN
-        assertEquals(expected, orders);
+        assertEquals(expected, orders.size());
     }
 }

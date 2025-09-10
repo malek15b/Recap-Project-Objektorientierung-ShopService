@@ -1,4 +1,5 @@
 import java.sql.SQLOutput;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,7 +19,11 @@ public class ShopService {
             products.add(productToOrder);
         }
 
-        Order newOrder = new Order(UUID.randomUUID().toString(), products,OrderStatus.PROCESSING);
+        Order newOrder = new Order(
+                UUID.randomUUID().toString(),
+                products,OrderStatus.PROCESSING,
+                LocalDateTime.now()
+        );
 
         return orderRepo.addOrder(newOrder);
     }
@@ -30,9 +35,9 @@ public class ShopService {
         })).toList();
     }
 
-    public void updateOrder(String orderId, Order updatedOrder) {
+    public Order updateOrder(String orderId, OrderStatus status) {
         Order order = orderRepo.getOrderById(orderId);
-        order = order.withStatus(updatedOrder.status());
-        orderRepo.addOrder(order);
+        orderRepo.addOrder(order.withStatus(status));
+        return order;
     }
 }
