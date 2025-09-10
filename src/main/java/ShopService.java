@@ -1,6 +1,7 @@
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class ShopService {
@@ -12,8 +13,7 @@ public class ShopService {
         for (String productId : productIds) {
             Product productToOrder = productRepo.getProductById(productId).orElse(null);
             if (productToOrder == null) {
-                System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
-                return null;
+                throw new NoSuchElementException("Product mit der Id: \" + productId + \" konnte nicht bestellt werden!");
             }
             products.add(productToOrder);
         }
