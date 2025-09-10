@@ -12,9 +12,9 @@ class OrderMapRepoTest {
     void getOrders() {
         //GIVEN
         OrderMapRepo repo = new OrderMapRepo();
-
+        LocalDateTime orderDate = LocalDateTime.now();
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, LocalDateTime.now());
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, orderDate);
         repo.addOrder(newOrder);
 
         //WHEN
@@ -23,7 +23,7 @@ class OrderMapRepoTest {
         //THEN
         List<Order> expected = new ArrayList<>();
         Product product1 = new Product("1", "Apfel");
-        expected.add(new Order("1", List.of(product1), OrderStatus.PROCESSING, LocalDateTime.now()));
+        expected.add(new Order("1", List.of(product1), OrderStatus.PROCESSING, orderDate));
 
         assertEquals(actual, expected);
     }
@@ -32,9 +32,9 @@ class OrderMapRepoTest {
     void getOrderById() {
         //GIVEN
         OrderMapRepo repo = new OrderMapRepo();
-
+        LocalDateTime orderDate = LocalDateTime.now();
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, LocalDateTime.now());
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, orderDate);
         repo.addOrder(newOrder);
 
         //WHEN
@@ -42,7 +42,7 @@ class OrderMapRepoTest {
 
         //THEN
         Product product1 = new Product("1", "Apfel");
-        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, LocalDateTime.now());
+        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, orderDate);
 
         assertEquals(actual, expected);
     }
