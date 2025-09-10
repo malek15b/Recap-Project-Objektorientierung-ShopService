@@ -43,7 +43,7 @@ class ShopServiceTest {
         Product product = new Product("1", "Apfel");
         Order order1 = shopService.addOrder(List.of(product.id()));
 
-        Product product2 = new Product("2", "Banane");
+        Product product2 = new Product("5", "Banane");
         Order order2 = shopService.addOrder(List.of(product.id(), product2.id()));
 
         List<Order> expected = List.of(order1,  order2);
