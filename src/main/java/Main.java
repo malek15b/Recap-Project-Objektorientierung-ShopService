@@ -6,8 +6,11 @@ public class Main {
         ProductRepo productRepo = new ProductRepo();
         ShopService shopService = new ShopService(productRepo, orderRepo);
 
-        String productId1 = "1";
-        String productId2 = "5";
+        String productId1 = IdService.generateId();
+        String productId2 = IdService.generateId();
+
+        productRepo.addProduct(new Product(productId1, "TV"));
+        productRepo.addProduct(new Product(productId2, "Phone"));
 
         Order order1 = shopService.addOrder(List.of(productId1));
         Order order2 = shopService.addOrder(List.of(productId2));
