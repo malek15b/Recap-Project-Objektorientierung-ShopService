@@ -1,3 +1,5 @@
+import lombok.RequiredArgsConstructor;
+
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -5,9 +7,15 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class ShopService {
-    private ProductRepo productRepo = new ProductRepo();
-    private OrderRepo orderRepo = new OrderMapRepo();
+    private final ProductRepo productRepo;
+    private final OrderRepo orderRepo;
+
+    public ShopService() {
+        productRepo = new ProductRepo();
+        orderRepo = new OrderMapRepo();
+    }
 
     public Order addOrder(List<String> productIds) {
         List<Product> products = new ArrayList<>();
